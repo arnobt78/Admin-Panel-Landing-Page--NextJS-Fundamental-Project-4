@@ -189,12 +189,23 @@ export const ColorModeContext = createContext<ColorModeContextValue>({
   toggleColorMode: () => {},
 });
 
-export const useMode = (): [ReturnType<typeof createTheme>, ColorModeContextValue] => {
-  const [mode, setMode] = useState<PaletteMode>("dark");
+const THEME_KEY = "admin-dashboard-theme";
+
+export const useMode = (initialMode?: "light" | "dark"): [ReturnType<typeof createTheme>, ColorModeContextValue] => {
+  const [mode, setMode] = useState<PaletteMode>(() => {
+    if (typeof window === "undefined") return initialMode ?? "dark";
+    const stored = localStorage.getItem(THEME_KEY) as PaletteMode | null;
+    if (stored) return stored;
+    return initialMode ?? (document.documentElement.classList.contains("dark") ? "dark" : "light");
+  });
   const colorMode = useMemo<ColorModeContextValue>(
     () => ({
       toggleColorMode: () =>
-        setMode((prev) => (prev === "light" ? "dark" : "light")),
+        setMode((prev) => {
+          const next = prev === "light" ? "dark" : "light";
+          if (typeof window !== "undefined") localStorage.setItem(THEME_KEY, next);
+          return next;
+        }),
     }),
     []
   );

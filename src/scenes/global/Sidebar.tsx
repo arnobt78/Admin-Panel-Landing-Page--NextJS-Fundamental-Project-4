@@ -3,6 +3,7 @@
 import { useContext, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useTheme } from "@mui/material/styles";
 import { SidebarContext } from "@/context/SidebarContext";
 import { cn } from "@/lib/utils";
 import {
@@ -50,9 +51,11 @@ const navItems: { title: string; to: string; icon: React.ReactNode }[] = [
 ];
 
 export function Sidebar() {
+  const theme = useTheme();
   const { isCollapsed, setIsCollapsed } = useContext(SidebarContext);
   const pathname = usePathname();
   const selected = pathToTitle[pathname] ?? "Dashboard";
+  const isDark = theme.palette.mode === "dark";
 
   useEffect(() => {
     const t = setTimeout(() => window.dispatchEvent(new Event("resize")), 300);
@@ -62,21 +65,25 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        "app-sidebar flex h-full flex-col border-r border-token-primary-600 bg-token-primary-400 transition-[width] duration-300 ease-in-out",
+        "app-sidebar flex h-full flex-col bg-token-primary-400 transition-[width] duration-300 ease-in-out",
+        isDark && "border-r border-token-primary-600",
         isCollapsed ? "w-[80px]" : "w-[270px]"
       )}
       aria-label="Main navigation"
     >
-      <div className="flex h-14 shrink-0 items-center justify-between border-b border-token-primary-600 px-3">
+      <div className={cn("flex h-14 shrink-0 items-center justify-between px-3", isDark && "border-b border-token-primary-600")}>
         {!isCollapsed && (
-          <span className="text-lg font-semibold tracking-tight text-token-grey-100">
+          <span className={cn("text-lg font-semibold tracking-tight", isDark ? "text-token-grey-100" : "text-gray-800")}>
             ADMIN PANEL
           </span>
         )}
         <button
           type="button"
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="rounded-md p-2 text-token-grey-100 transition-colors hover:bg-token-primary-600 hover:text-token-greenAccent-400"
+          className={cn(
+            "rounded-md p-2 transition-colors",
+            isDark ? "text-token-grey-100 hover:bg-token-primary-600 hover:text-token-greenAccent-400" : "text-gray-700 hover:bg-gray-300"
+          )}
           aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           {isCollapsed ? <Menu className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
@@ -84,7 +91,7 @@ export function Sidebar() {
       </div>
 
       {!isCollapsed && (
-        <div className="flex flex-col items-center border-b border-token-primary-600 py-6">
+        <div className={cn("flex flex-col items-center py-6", isDark && "border-b border-token-primary-600")}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             alt="Profile"
@@ -93,7 +100,7 @@ export function Sidebar() {
             src="/assets/user.png"
             className="rounded-full object-cover"
           />
-          <p className="mt-2 text-center text-lg font-semibold text-token-grey-100">John Doe</p>
+          <p className={cn("mt-2 text-center text-lg font-semibold", isDark ? "text-token-grey-100" : "text-gray-800")}>John Doe</p>
           <p className="text-sm text-token-greenAccent-500">VIP Fancy Admin</p>
         </div>
       )}
@@ -109,8 +116,10 @@ export function Sidebar() {
                   className={cn(
                     "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ease-out",
                     isActive
-                      ? "bg-token-blueAccent-700/80 text-token-grey-100"
-                      : "text-token-grey-200 hover:bg-token-primary-600 hover:text-token-grey-100"
+                      ? "bg-token-blueAccent-700 text-white"
+                      : isDark
+                        ? "text-token-grey-200 hover:bg-token-primary-600 hover:text-token-grey-100"
+                        : "text-token-grey-200 hover:bg-gray-400 hover:text-white"
                   )}
                 >
                   {item.icon}

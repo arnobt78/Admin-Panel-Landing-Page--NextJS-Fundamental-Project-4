@@ -68,6 +68,7 @@ export default function Team() {
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: "var(--token-blueAccent-700)",
             borderBottom: "none",
+            color: "#fff",
           },
           "& .MuiDataGrid-virtualScroller": {
             backgroundColor: "var(--token-primary-400)",
@@ -75,6 +76,7 @@ export default function Team() {
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
             backgroundColor: "var(--token-blueAccent-700)",
+            color: "#fff",
           },
           "& .MuiCheckbox-root": {
             color: "var(--token-greenAccent-200) !important",

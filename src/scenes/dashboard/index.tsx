@@ -1,9 +1,8 @@
 "use client";
 
-import { useRef, useState, useEffect, useContext } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Box, Button, IconButton, Typography } from "@mui/material";
-import { SidebarContext } from "@/context/SidebarContext";
 import Header from "@/components/Header";
 import StatBox from "@/components/StatBox";
 import ProgressCircle from "@/components/ProgressCircle";
@@ -34,30 +33,12 @@ const stagger = {
 };
 
 export default function Dashboard() {
-  const { isCollapsed } = useContext(SidebarContext);
   const lineRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const geoRef = useRef<HTMLDivElement>(null);
   const [lineReady, setLineReady] = useState(false);
   const [barReady, setBarReady] = useState(false);
   const [geoReady, setGeoReady] = useState(false);
-  const [sidebarTransitioning, setSidebarTransitioning] = useState(false);
-
-  useEffect(() => {
-    const sidebar = document.querySelector(".app-sidebar");
-    if (!sidebar) return;
-    const handleTransitionStart = () => setSidebarTransitioning(true);
-    const handleTransitionEnd = () => setSidebarTransitioning(false);
-    sidebar.addEventListener("transitionstart", handleTransitionStart);
-    sidebar.addEventListener("transitionend", handleTransitionEnd);
-    if (getComputedStyle(sidebar).transitionDuration === "0s") {
-      queueMicrotask(() => setSidebarTransitioning(false));
-    }
-    return () => {
-      sidebar.removeEventListener("transitionstart", handleTransitionStart);
-      sidebar.removeEventListener("transitionend", handleTransitionEnd);
-    };
-  }, [isCollapsed]);
 
   useEffect(() => {
     const checkSize = (
@@ -77,7 +58,7 @@ export default function Dashboard() {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [isCollapsed]);
+  }, []);
 
   return (
     <div className="min-h-full p-4">
@@ -181,12 +162,7 @@ export default function Dashboard() {
             </Box>
           </Box>
           <Box className="h-[250px] -mt-5" ref={lineRef}>
-            {lineReady && !sidebarTransitioning && (
-              <LineChart
-                isDashboard={true}
-                key={isCollapsed ? "collapsed" : "expanded"}
-              />
-            )}
+            {lineReady && <LineChart isDashboard={true} />}
           </Box>
         </motion.div>
         <motion.div
@@ -254,12 +230,7 @@ export default function Dashboard() {
             Sales Quantity
           </Typography>
           <Box className="h-[250px] -mt-5" ref={barRef}>
-            {barReady && !sidebarTransitioning && (
-              <BarChart
-                isDashboard={true}
-                key={isCollapsed ? "collapsed" : "expanded"}
-              />
-            )}
+            {barReady && <BarChart isDashboard={true} />}
           </Box>
         </motion.div>
         <motion.div
@@ -270,12 +241,7 @@ export default function Dashboard() {
             Geography Based Traffic
           </Typography>
           <Box className="h-[200px]" ref={geoRef}>
-            {geoReady && !sidebarTransitioning && (
-              <GeographyChart
-                isDashboard={true}
-                key={isCollapsed ? "collapsed" : "expanded"}
-              />
-            )}
+            {geoReady && <GeographyChart isDashboard={true} />}
           </Box>
         </motion.div>
       </motion.div>
