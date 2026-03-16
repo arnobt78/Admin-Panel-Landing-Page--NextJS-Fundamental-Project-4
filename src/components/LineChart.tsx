@@ -20,7 +20,20 @@ export default function LineChart({
   const theme = useTheme();
   const mode = theme?.palette?.mode ?? "dark";
   const colors = tokens(mode as "light" | "dark");
-  const safeData = Array.isArray(data) ? data : [];
+  const safeData = Array.isArray(data)
+    ? data.map((s) => ({
+        ...s,
+        id: s?.id ?? "",
+        data: Array.isArray(s?.data) ? s.data : [],
+      }))
+    : [];
+  if (safeData.length === 0 || safeData.every((s) => s.data.length === 0)) {
+    return (
+      <div className="flex h-full min-h-[300px] items-center justify-center text-token-grey-400">
+        No line data
+      </div>
+    );
+  }
   return (
     <ResponsiveLine
       data={safeData}
