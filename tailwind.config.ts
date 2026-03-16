@@ -54,7 +54,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["Source Sans Pro", "sans-serif"],
+        sans: ["var(--font-sans)", "Plus Jakarta Sans", "sans-serif"],
       },
     },
   },
