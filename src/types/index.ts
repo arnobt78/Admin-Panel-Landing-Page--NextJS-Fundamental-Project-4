@@ -1,4 +1,7 @@
-/** Shared TypeScript types for the admin dashboard */
+/**
+ * Shared TypeScript types for the admin dashboard.
+ * Used by mockData, chart components, form, DataGrids, and context.
+ */
 
 export type PaletteMode = "light" | "dark";
 

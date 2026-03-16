@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Dashboard (home): stat cards (StatBox), revenue line chart, campaign progress, sales bar chart,
+ * geography chart, recent transactions. Uses ResizeObserver so charts render only when container has size.
+ */
 import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Box, IconButton, Typography, Tooltip } from "@mui/material";
@@ -16,6 +20,7 @@ import TrafficIcon from "@mui/icons-material/Traffic";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import { mockTransactions } from "@/data/mockData";
 
+// Framer Motion: subtle entrance animation for grid items
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: {
@@ -40,6 +45,7 @@ export default function Dashboard() {
   const [barReady, setBarReady] = useState(false);
   const [geoReady, setGeoReady] = useState(false);
 
+  // Wait for chart containers to have dimensions before rendering (avoids Recharts width/height warnings)
   useEffect(() => {
     const refs = [
       [lineRef, setLineReady],

@@ -50,6 +50,7 @@ export default function Calendar() {
     null,
   );
 
+  // Click on empty slot: open "New Event" dialog with selected date range
   const handleDateClick = useCallback((selected: DateSelectArg) => {
     selected.view.calendar.unselect();
     setPendingSelect(selected);
@@ -71,6 +72,7 @@ export default function Calendar() {
     }
   }, [pendingSelect, eventTitle]);
 
+  // Click on event: open delete confirmation dialog
   const handleEventClick = useCallback((selected: EventClickArg) => {
     setPendingDelete(selected);
     setDeleteDialogOpen(true);

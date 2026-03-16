@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Bar chart (Recharts): grouped bars by country (mockBarData). Used on dashboard and /bar page.
+ * KEYS = stack keys per row; each Bar gets a LabelList on top.
+ */
 import {
   BarChart as RechartsBarChart,
   Bar,
@@ -43,6 +47,7 @@ export default function BarChart({ isDashboard = false }: BarChartProps) {
           cursor={{ stroke: "transparent" }}
         />
         {!isDashboard && <Legend />}
+        {/* One Bar per category; radius for rounded top corners */}
         {KEYS.map((key, i) => (
           <Bar key={key} dataKey={key} fill={COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]}>
             <LabelList dataKey={key} position="top" fill="var(--token-grey-100)" fontSize={isDashboard ? 8 : 10} formatter={(v) => (typeof v === "number" ? v.toLocaleString() : String(v ?? ""))} />

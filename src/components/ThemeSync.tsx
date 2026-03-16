@@ -7,6 +7,7 @@ const THEME_KEY = "admin-dashboard-theme";
 
 export function ThemeSync() {
   const theme = useTheme();
+  // Keep <html> class and background in sync with MUI mode; persist to localStorage and cookie for SSR
   useEffect(() => {
     const isDark = theme.palette.mode === "dark";
     document.documentElement.classList.toggle("dark", isDark);

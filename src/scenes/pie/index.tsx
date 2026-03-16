@@ -14,6 +14,7 @@ export default function Pie() {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [containerReady, setContainerReady] = useState(false);
 
+  // ResizeObserver: render chart only when container has size; re-run when sidebar toggles
   useEffect(() => {
     const el = chartContainerRef.current;
     if (!el) return;

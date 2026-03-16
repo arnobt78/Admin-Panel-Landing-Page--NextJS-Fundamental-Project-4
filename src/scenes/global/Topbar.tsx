@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Top bar: search input, theme toggle (ColorModeContext), notifications/settings/profile buttons.
+ * Theme-aware styles; no navigation (sidebar handles routes).
+ */
 import { useContext } from "react";
 import { useTheme } from "@mui/material/styles";
 import { ColorModeContext } from "@/lib/theme";
@@ -29,6 +33,7 @@ export function Topbar() {
         </div>
       </div>
       <div className="flex items-center gap-1">
+        {/* Toggle light/dark; icon shows Sun in dark mode (click to go light), Moon in light mode */}
         <button
           type="button"
           onClick={colorMode.toggleColorMode}

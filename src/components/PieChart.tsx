@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Pie/Donut chart (Recharts): mockPieData with label + value. External labels show "Label XX%" with connector lines.
+ */
 import { PieChart as RechartsPieChart, Pie, ResponsiveContainer, Legend, Tooltip } from "recharts";
 import { mockPieData } from "@/data/mockData";
 
@@ -7,6 +10,7 @@ const COLORS = ["#4cceac", "#70d8bd", "#868dfb", "#e2726e", "#eed312"];
 
 const RADIAN = Math.PI / 180;
 
+/** Place label outside slice: position from midAngle, same color as slice; format "Label 42%". */
 function renderCustomLabel(props: {
   cx?: number;
   cy?: number;
@@ -33,6 +37,7 @@ function renderCustomLabel(props: {
 export default function PieChart() {
   const data = Array.isArray(mockPieData) ? mockPieData : [];
   const total = data.reduce((s, d) => s + (d.value ?? 0), 0);
+  // Recharts Pie expects fill per segment; assign from COLORS by index
   const dataWithFill = data.map((entry, i) => ({
     ...entry,
     fill: COLORS[i % COLORS.length],
@@ -61,9 +66,11 @@ export default function PieChart() {
           label={renderCustomLabel}
           labelLine={{ stroke: "var(--token-grey-400)", strokeWidth: 1 }}
         />
+        {/* Tooltip shows value and % of total */}
         <Tooltip
           contentStyle={{ backgroundColor: "#1f2a40", border: "none", borderRadius: 8, color: "#fff" }}
           formatter={(value, name) => [
+            // Display value and percentage of total
             `${typeof value === "number" ? value : 0} (${total ? (((typeof value === "number" ? value : 0) / total) * 100).toFixed(1) : 0}%)`,
             String(name ?? ""),
           ]}

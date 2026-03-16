@@ -1,3 +1,4 @@
+/* Tailwind + design tokens. :root = light mode, .dark = dark mode (set by ThemeSync / layout script). */
 @tailwind base;
 @tailwind components;
 @layer base {

@@ -9,6 +9,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       <Sidebar />
       <main className="flex min-h-0 flex-1 flex-col">
         <Topbar />
+        {/* Page content (dashboard, team, form, etc.) scrolls here */}
         <div className="flex-1 overflow-auto">{children}</div>
       </main>
     </div>

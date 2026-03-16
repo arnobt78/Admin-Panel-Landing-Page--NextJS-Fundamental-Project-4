@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Geography chart page: full-size world choropleth.
+ * Geography chart page: full-size horizontal bar chart (id + value). Uses ResizeObserver for container size.
  */
 import { Box } from "@mui/material";
 import GeographyChart from "@/components/GeographyChart";
@@ -14,6 +14,7 @@ export default function Geography() {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [containerReady, setContainerReady] = useState(false);
 
+  // ResizeObserver: render when container has size; key by isCollapsed so chart resizes on sidebar toggle
   useEffect(() => {
     const el = chartContainerRef.current;
     if (!el) return;

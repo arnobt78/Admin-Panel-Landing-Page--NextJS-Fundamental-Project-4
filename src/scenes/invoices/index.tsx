@@ -28,6 +28,7 @@ export default function Invoices() {
       field: "cost",
       headerName: "Cost",
       flex: 1,
+      // Style cost column with accent color
       renderCell: (params: GridRenderCellParams) => (
         <Typography className="text-token-greenAccent-500">
           ${params.row.cost}

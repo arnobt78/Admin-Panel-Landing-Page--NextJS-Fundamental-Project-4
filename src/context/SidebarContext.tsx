@@ -7,11 +7,13 @@
 import { createContext, useState } from "react";
 import type { SidebarContextValue } from "@/types";
 
+// Default for consumers outside provider (e.g. in tests)
 export const SidebarContext = createContext<SidebarContextValue>({
   isCollapsed: false,
   setIsCollapsed: () => {},
 });
 
+/** Provides sidebar collapsed state to Sidebar and Topbar (collapse/expand toggle). */
 export function SidebarProvider({
   children,
 }: {

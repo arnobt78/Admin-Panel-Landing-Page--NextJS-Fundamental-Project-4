@@ -2,7 +2,7 @@
 
 /**
  * Hook to detect when a chart container has valid dimensions.
- * Nivo charts need a non-zero width/height to render correctly.
+ * Use when rendering charts (e.g. Recharts) so they only mount after the container has width/height (avoids layout warnings).
  */
 import { useRef, useState, useEffect } from "react";
 

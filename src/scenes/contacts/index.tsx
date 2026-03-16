@@ -78,6 +78,7 @@ export default function Contacts() {
           },
         }}
       >
+        {/* slots.toolbar: GridToolbar adds filter, export, density controls */}
         <DataGrid
           rows={mockDataContacts}
           columns={columns}

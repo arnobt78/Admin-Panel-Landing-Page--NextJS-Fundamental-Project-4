@@ -18,10 +18,12 @@ export default function ProgressCircle({
 }: ProgressCircleProps) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode as "light" | "dark");
+  // progress "0.75" → 270deg filled; conic-gradient draws the arc
   const angle = parseFloat(progress) * 360;
   return (
     <Box
       sx={{
+        // Radial center hole + conic arc + green base; theme-aware
         background: `radial-gradient(${colors.primary[400]} 55%, transparent 56%),
             conic-gradient(transparent 0deg ${angle}deg, ${colors.blueAccent[500]} ${angle}deg 360deg),
             ${colors.greenAccent[500]}`,

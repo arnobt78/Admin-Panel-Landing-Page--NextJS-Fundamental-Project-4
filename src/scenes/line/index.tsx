@@ -12,6 +12,7 @@ export default function Line() {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [containerReady, setContainerReady] = useState(false);
 
+  // ResizeObserver: render chart only when container has dimensions
   useEffect(() => {
     const el = chartContainerRef.current;
     if (!el) return;

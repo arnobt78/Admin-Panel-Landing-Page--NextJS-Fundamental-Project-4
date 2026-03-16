@@ -20,6 +20,7 @@ const FAQ_ITEMS = [
   { question: "The Final Question", answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget." },
 ];
 
+// Alternate background colors per accordion in dark mode for visual separation
 const DARK_FAQ_BG = [
   "var(--token-primary-400)",
   "#252d42",
@@ -40,6 +41,7 @@ export default function FAQ() {
           key={item.question}
           defaultExpanded={i === 0}
           sx={{
+            // First item open by default; dark mode: alternate bg per item
             ...(isDark && {
               bgcolor: DARK_FAQ_BG[i % DARK_FAQ_BG.length],
               "&:before": { display: "none" },

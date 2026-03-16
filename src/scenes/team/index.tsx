@@ -38,6 +38,7 @@ export default function Team() {
       field: "accessLevel",
       headerName: "Access Level",
       flex: 1,
+      // Custom cell: badge with icon by access (admin/manager/user)
       renderCell: (params: GridRenderCellParams) => {
         const access = params.row.access as string;
         const bgClass =

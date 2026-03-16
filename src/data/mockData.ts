@@ -7,6 +7,7 @@ import type { TeamMember, Contact, Invoice, Transaction, BarDataItem, PieDataIte
 
 const darkColors = tokens("dark");
 
+// --- Team (DataGrid on /team) ---
 export const mockDataTeam: TeamMember[] = [
   { id: 1, name: "Jon Snow", email: "jonsnow@gmail.com", age: 35, phone: "(665)121-5454", access: "admin" },
   { id: 2, name: "Cersei Lannister", email: "cerseilannister@gmail.com", age: 42, phone: "(421)314-2288", access: "manager" },
@@ -19,6 +20,7 @@ export const mockDataTeam: TeamMember[] = [
   { id: 9, name: "Harvey Roxie", email: "harveyroxie@gmail.com", age: 65, phone: "(444)555-6239", access: "admin" },
 ];
 
+// --- Contacts (DataGrid on /contacts) ---
 export const mockDataContacts: Contact[] = [
   { id: 1, name: "Jon Snow", email: "jonsnow@gmail.com", age: 35, phone: "(665)121-5454", address: "0912 Won Street, Alabama, SY 10001", city: "New York", zipCode: "10001", registrarId: 123512 },
   { id: 2, name: "Cersei Lannister", email: "cerseilannister@gmail.com", age: 42, phone: "(421)314-2288", address: "1234 Main Street, New York, NY 10001", city: "New York", zipCode: "13151", registrarId: 123512 },
@@ -33,6 +35,7 @@ export const mockDataContacts: Contact[] = [
   { id: 11, name: "Steve Goodman", email: "stevegoodmane@gmail.com", age: 11, phone: "(444)555-6239", address: "51234 Fiveton Street, CunFory, ND 212412", city: "Colunza", zipCode: "1234", registrarId: 92197 },
 ];
 
+// --- Invoices (DataGrid on /invoices) ---
 export const mockDataInvoices: Invoice[] = [
   { id: 1, name: "Jon Snow", email: "jonsnow@gmail.com", cost: "21.24", phone: "(665)121-5454", date: "03/12/2022" },
   { id: 2, name: "Cersei Lannister", email: "cerseilannister@gmail.com", cost: "1.24", phone: "(421)314-2288", date: "06/15/2021" },
@@ -44,6 +47,7 @@ export const mockDataInvoices: Invoice[] = [
   { id: 8, name: "Rossini Frances", email: "rossinifrances@gmail.com", cost: "21.24", phone: "(222)444-5555", date: "05/02/2021" },
 ];
 
+// --- Recent transactions (dashboard list) ---
 export const mockTransactions: Transaction[] = [
   { txId: "01e4dsa", user: "johndoe", date: "2021-09-01", cost: "43.95" },
   { txId: "0315dsaa", user: "jackdower", date: "2022-04-01", cost: "133.45" },
@@ -55,6 +59,7 @@ export const mockTransactions: Transaction[] = [
   { txId: "0315dsaa", user: "jackdower", date: "2022-04-01", cost: "133.45" },
 ];
 
+// --- Bar chart (dashboard + /bar): country + category counts ---
 export const mockBarData: BarDataItem[] = [
   { country: "AD", "hot dog": 137, burger: 96, kebab: 72, donut: 140 },
   { country: "AE", "hot dog": 55, burger: 28, kebab: 58, donut: 29 },
@@ -65,6 +70,7 @@ export const mockBarData: BarDataItem[] = [
   { country: "AM", "hot dog": 80, burger: 47, kebab: 158, donut: 49 },
 ];
 
+// --- Pie chart (/pie): label + value per segment ---
 export const mockPieData: PieDataItem[] = [
   { id: "hack", label: "hack", value: 239, color: "hsl(104, 70%, 50%)" },
   { id: "make", label: "make", value: 170, color: "hsl(162, 70%, 50%)" },
@@ -73,6 +79,7 @@ export const mockPieData: PieDataItem[] = [
   { id: "scala", label: "scala", value: 584, color: "hsl(344, 70%, 50%)" },
 ];
 
+// --- Line chart (dashboard + /line): multiple series with { x, y } points ---
 export const mockLineData: LineDataSeries[] = [
   {
     id: "japan",
@@ -103,6 +110,7 @@ export const mockLineData: LineDataSeries[] = [
   },
 ];
 
+// --- Geography chart (dashboard + /geography): id (e.g. country code) + value ---
 export const mockGeographyData: GeographyDataItem[] = [
   { id: "AFG", value: 520600 }, { id: "AGO", value: 949905 }, { id: "ALB", value: 329910 }, { id: "ARE", value: 675484 },
   { id: "ARG", value: 432239 }, { id: "ARM", value: 288305 }, { id: "ATA", value: 415648 }, { id: "ATF", value: 665159 },

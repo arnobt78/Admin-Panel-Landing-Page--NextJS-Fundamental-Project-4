@@ -28,6 +28,7 @@ export interface Tokens {
   blueAccent: ColorScale;
 }
 
+/** Design token palette by mode; used by MUI theme and can be mirrored in globals.css (--token-*). */
 export const tokens = (mode: PaletteMode | undefined): Tokens =>
   mode === "dark"
     ? {
@@ -145,6 +146,7 @@ export const tokens = (mode: PaletteMode | undefined): Tokens =>
         },
       };
 
+/** MUI theme options: palette (primary, secondary, background) and typography. */
 export const themeSettings = (mode: PaletteMode) => {
   const colors = tokens(mode);
   return {
@@ -191,6 +193,7 @@ export const ColorModeContext = createContext<ColorModeContextValue>({
 
 const THEME_KEY = "admin-dashboard-theme";
 
+/** Hook: returns [MUI theme, { toggleColorMode }]. Mode from localStorage, system preference, or initialMode (SSR). */
 export const useMode = (initialMode?: "light" | "dark"): [ReturnType<typeof createTheme>, ColorModeContextValue] => {
   const [mode, setMode] = useState<PaletteMode>(() => {
     if (typeof window === "undefined") return initialMode ?? "dark";

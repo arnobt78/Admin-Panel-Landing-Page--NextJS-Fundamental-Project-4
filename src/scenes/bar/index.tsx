@@ -14,6 +14,7 @@ export default function Bar() {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [containerReady, setContainerReady] = useState(false);
 
+  // ResizeObserver: only render chart when container has dimensions (avoids Recharts warnings)
   useEffect(() => {
     const el = chartContainerRef.current;
     if (!el) return;

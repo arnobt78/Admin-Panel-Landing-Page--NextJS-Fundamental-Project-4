@@ -14,6 +14,7 @@ interface HeaderProps {
 
 export default function Header({ title, subtitle }: HeaderProps) {
   return (
+    // Layout: title/subtitle on left; Download Reports button on right (same on every page)
     <Box className="mb-[30px] flex justify-between items-start">
       <Box>
         <Typography

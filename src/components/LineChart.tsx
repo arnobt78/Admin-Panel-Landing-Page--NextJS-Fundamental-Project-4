@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Line chart (Recharts): revenue/time series. Used on dashboard (compact) and /line page (full).
+ * Data: mockLineData = array of series { id, color, data: [{ x, y }] }. Transformed to flat points per x.
+ */
 import {
   LineChart as RechartsLineChart,
   Line,
@@ -19,6 +23,7 @@ interface LineChartProps {
 
 const COLORS = ["#4cceac", "#70d8bd", "#e2726e"];
 
+/** Pivot series-by-x into points { x, series1, series2, ... } for Recharts. */
 function transformLineData(series: Array<{ id: string; data: Array<{ x: string; y: number }> }>) {
   if (!series.length) return [];
   const keys = series.map((s) => s.id);
@@ -49,6 +54,7 @@ export default function LineChart({ isDashboard = false }: LineChartProps) {
     <ResponsiveContainer width="100%" height="100%" minHeight={150} initialDimension={{ width: 1, height: 1 }}>
       <RechartsLineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
+        {/* Hide axes on dashboard for a cleaner compact look */}
         <XAxis dataKey="x" stroke="#a3a3a3" tick={{ fontSize: 12 }} hide={isDashboard} />
         <YAxis stroke="#a3a3a3" tick={{ fontSize: 12 }} hide={isDashboard} />
         <Tooltip
@@ -57,6 +63,7 @@ export default function LineChart({ isDashboard = false }: LineChartProps) {
           cursor={{ stroke: "transparent" }}
         />
         {!isDashboard && <Legend />}
+        {/* One Line per series; LabelList shows value on top of each point */}
         {series.slice(0, 3).map((s, i) => (
           <Line
             key={s.id}

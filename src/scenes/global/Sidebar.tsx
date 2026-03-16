@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Main sidebar: nav links (Next Link), collapse state from SidebarContext, active route from usePathname.
+ * Shows profile block when expanded; Lucide icons; theme-aware (isDark) styling.
+ */
 import { useContext, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -22,6 +26,7 @@ import {
   ChevronLeft,
 } from "lucide-react";
 
+// Map pathname to label for active state and aria
 const pathToTitle: Record<string, string> = {
   "/": "Dashboard",
   "/team": "Manage Team",
@@ -97,6 +102,7 @@ export function Sidebar() {
   const selected = pathToTitle[pathname] ?? "Dashboard";
   const isDark = theme.palette.mode === "dark";
 
+  // Notify Recharts ResponsiveContainer to recalc size when sidebar toggles
   useEffect(() => {
     const t = setTimeout(() => window.dispatchEvent(new Event("resize")), 300);
     return () => clearTimeout(t);
