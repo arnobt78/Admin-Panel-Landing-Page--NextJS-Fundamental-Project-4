@@ -19,7 +19,7 @@ export default function GeographyChart({ isDashboard = false }: GeographyChartPr
   }
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="100%" minHeight={150}>
       <RechartsBarChart data={data} layout="vertical" margin={{ top: 5, right: 20, left: 30, bottom: 5 }}>
         <XAxis type="number" stroke="#a3a3a3" tick={{ fontSize: 10 }} hide={isDashboard} />
         <YAxis type="category" dataKey="id" stroke="#a3a3a3" tick={{ fontSize: 10 }} width={40} />
@@ -29,7 +29,7 @@ export default function GeographyChart({ isDashboard = false }: GeographyChartPr
           formatter={(v) => (typeof v === "number" ? v.toLocaleString() : String(v ?? ""))}
         />
         <Bar dataKey="value" fill="#4cceac" radius={[0, 4, 4, 0]}>
-          <LabelList dataKey="value" position="right" fill="#1f2a40" fontSize={10} formatter={(v) => (typeof v === "number" ? v.toLocaleString() : String(v ?? ""))} />
+          <LabelList dataKey="value" position="right" fill="var(--token-grey-100)" fontSize={isDashboard ? 8 : 10} formatter={(v) => (typeof v === "number" ? v.toLocaleString() : String(v ?? ""))} />
         </Bar>
       </RechartsBarChart>
     </ResponsiveContainer>

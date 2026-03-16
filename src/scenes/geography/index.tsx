@@ -32,7 +32,7 @@ export default function Geography() {
       <Header title="Geography" subtitle="Simple Geography Chart" />
       <Box
         ref={chartContainerRef}
-        className="h-[75vh] border border-token-grey-100 rounded"
+        className="h-[75vh] min-h-[300px] w-full border border-token-grey-100 rounded"
       >
         {containerReady && (
           <GeographyChart key={isCollapsed ? "collapsed" : "expanded"} />

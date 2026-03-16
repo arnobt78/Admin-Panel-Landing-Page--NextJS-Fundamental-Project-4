@@ -30,7 +30,7 @@ export default function Pie() {
   return (
     <Box className="m-5">
       <Header title="Pie Chart" subtitle="Simple Pie Chart" />
-      <Box ref={chartContainerRef} className="h-[75vh]">
+      <Box ref={chartContainerRef} className="h-[75vh] min-h-[300px] w-full">
         {containerReady && (
           <PieChart key={isCollapsed ? "collapsed" : "expanded"} />
         )}

@@ -55,9 +55,14 @@ export default function Dashboard() {
       checkSize(barRef, setBarReady);
       checkSize(geoRef, setGeoReady);
     };
-    handleResize();
+    const rafId = requestAnimationFrame(() => {
+      handleResize();
+    });
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (
@@ -161,7 +166,7 @@ export default function Dashboard() {
               </IconButton>
             </Box>
           </Box>
-          <Box className="h-[250px] -mt-5" ref={lineRef}>
+          <Box className="h-[250px] min-h-[200px] w-full -mt-5" ref={lineRef}>
             {lineReady && <LineChart isDashboard={true} />}
           </Box>
         </motion.div>
@@ -208,10 +213,24 @@ export default function Dashboard() {
           <Typography variant="h5" className="font-semibold">
             Campaign
           </Typography>
-          <Box className="flex flex-col items-center mt-6">
+          <Box className="flex flex-col items-center mt-6 relative">
             <Tooltip title="75% progress · $48,352 revenue" placement="top" arrow>
-              <Box component="span" sx={{ display: "inline-block" }}>
+              <Box component="span" sx={{ display: "inline-block", position: "relative" }}>
                 <ProgressCircle size="125" />
+                <Typography
+                  component="span"
+                  sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    fontSize: "1.25rem",
+                    fontWeight: 700,
+                    color: "var(--token-grey-100)",
+                  }}
+                >
+                  75%
+                </Typography>
               </Box>
             </Tooltip>
             <Typography
@@ -233,7 +252,7 @@ export default function Dashboard() {
           >
             Sales Quantity
           </Typography>
-          <Box className="h-[250px] -mt-5 overflow-hidden" ref={barRef}>
+          <Box className="h-[250px] min-h-[200px] w-full -mt-5 overflow-hidden" ref={barRef}>
             {barReady && <BarChart isDashboard={true} />}
           </Box>
         </motion.div>
@@ -244,7 +263,7 @@ export default function Dashboard() {
           <Typography variant="h5" className="font-semibold mb-4">
             Geography Based Traffic
           </Typography>
-          <Box className="h-[200px]" ref={geoRef}>
+          <Box className="h-[200px] min-h-[150px] w-full" ref={geoRef}>
             {geoReady && <GeographyChart isDashboard={true} />}
           </Box>
         </motion.div>

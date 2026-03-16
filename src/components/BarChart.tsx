@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  LabelList,
 } from "recharts";
 import { mockBarData } from "@/data/mockData";
 
@@ -31,7 +32,7 @@ export default function BarChart({ isDashboard = false }: BarChartProps) {
   }
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="100%" minHeight={150}>
       <RechartsBarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
         <XAxis dataKey="country" stroke="#a3a3a3" tick={{ fontSize: 12 }} hide={isDashboard} />
@@ -43,7 +44,9 @@ export default function BarChart({ isDashboard = false }: BarChartProps) {
         />
         {!isDashboard && <Legend />}
         {KEYS.map((key, i) => (
-          <Bar key={key} dataKey={key} fill={COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]} />
+          <Bar key={key} dataKey={key} fill={COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]}>
+            <LabelList dataKey={key} position="top" fill="var(--token-grey-100)" fontSize={isDashboard ? 8 : 10} formatter={(v) => (typeof v === "number" ? v.toLocaleString() : String(v ?? ""))} />
+          </Bar>
         ))}
       </RechartsBarChart>
     </ResponsiveContainer>

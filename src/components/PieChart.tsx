@@ -22,7 +22,7 @@ export default function PieChart() {
   }
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="100%" minHeight={150}>
       <RechartsPieChart>
         <Pie
           data={dataWithFill}
@@ -35,9 +35,23 @@ export default function PieChart() {
           nameKey="label"
         >
           <LabelList
-            formatter={(...args: unknown[]) => {
-              const props = args[2] as { percent?: number } | undefined;
-              return `${((props?.percent ?? 0) * 100).toFixed(0)}%`;
+            dataKey="value"
+            position="outside"
+            valueAccessor={(entry) => {
+              const value = entry.value as number;
+              const label = (entry.payload as { label?: string })?.label ?? "";
+              const pct = total ? (((value ?? 0) / total) * 100).toFixed(0) : "0";
+              return `${label} ${pct}%`;
+            }}
+            content={(props: unknown) => {
+              const p = props as { payload?: { fill?: string }; valueAccessor?: (e: unknown) => unknown; value?: unknown; x?: number; y?: number; textAnchor?: string };
+              const fill = p.payload?.fill ?? "#666";
+              const value = p.valueAccessor?.(p) ?? p.value;
+              return (
+                <text x={p.x} y={p.y} fill={fill} textAnchor={(p.textAnchor as "start" | "middle" | "end") ?? "middle"} fontSize={12}>
+                  {String(value ?? "")}
+                </text>
+              );
             }}
           />
         </Pie>

@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  LabelList,
 } from "recharts";
 import { mockLineData } from "@/data/mockData";
 
@@ -45,7 +46,7 @@ export default function LineChart({ isDashboard = false }: LineChartProps) {
   }
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="100%" minHeight={150}>
       <RechartsLineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
         <XAxis dataKey="x" stroke="#a3a3a3" tick={{ fontSize: 12 }} hide={isDashboard} />
@@ -65,7 +66,9 @@ export default function LineChart({ isDashboard = false }: LineChartProps) {
             strokeWidth={2}
             dot={{ r: 4 }}
             connectNulls
-          />
+          >
+            <LabelList dataKey={s.id} position="top" fill="var(--token-grey-100)" fontSize={isDashboard ? 8 : 10} formatter={(v) => (typeof v === "number" ? v.toLocaleString() : String(v ?? ""))} />
+          </Line>
         ))}
       </RechartsLineChart>
     </ResponsiveContainer>

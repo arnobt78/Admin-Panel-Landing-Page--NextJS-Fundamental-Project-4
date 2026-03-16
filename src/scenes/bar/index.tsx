@@ -30,7 +30,7 @@ export default function Bar() {
   return (
     <Box className="m-5">
       <Header title="Bar Chart" subtitle="Simple Bar Chart" />
-      <Box ref={chartContainerRef} className="h-[75vh]">
+      <Box ref={chartContainerRef} className="h-[75vh] min-h-[300px] w-full">
         {containerReady && (
           <BarChart key={isCollapsed ? "collapsed" : "expanded"} />
         )}
